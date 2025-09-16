@@ -3,25 +3,25 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="/favicon.png" />
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#3b82f6" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Dicoding Story" />
-    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="favicon.png" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="/styles/styles.css" />
+    <link rel="stylesheet" href="styles/styles.css" />
     <title>App</title>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script type="module" src="/scripts/index.js"></script>
+    <script type="module" src="scripts/index.js"></script>
     <script>
       // Service Worker Registration
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
+          navigator.serviceWorker.register('sw.js')
             .then((registration) => {
               console.log('SW registered: ', registration);
             })
@@ -58,6 +58,7 @@
       <a href="#main-content" class="skip-link" tabindex="1">Skip to content</a>
       <div class="main-header container">
         <a class="brand-name" href="#/">Dicoding Story</a>
+        <button id="install-btn" class="btn" style="display:none; margin-right:8px"><i class="fas fa-download"></i> Install</button>
         <nav id="navigation-drawer" class="navigation-drawer" style="margin-left:auto;">
           <ul id="nav-list" class="nav-list">
             <li><a href="#/"><i class="fas fa-home"></i> Beranda</a></li>
