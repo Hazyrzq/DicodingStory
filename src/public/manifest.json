@@ -10,25 +10,25 @@
   "description": "Berbagi cerita seputar Dicoding dengan peta, kamera, dan notifikasi.",
   "icons": [
     {
-      "src": "images/icons/manifest-icon-192.maskable.png",
+      "src": "/DicodingStory/images/icons/manifest-icon-192.maskable.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "images/icons/manifest-icon-192.maskable.png",
+      "src": "/DicodingStory/images/icons/manifest-icon-192.maskable.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "images/icons/manifest-icon-512.maskable.png",
+      "src": "/DicodingStory/images/icons/manifest-icon-512.maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "images/icons/manifest-icon-512.maskable.png",
+      "src": "/DicodingStory/images/icons/manifest-icon-512.maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -42,7 +42,7 @@
       "url": "/DicodingStory/#/add-story",
       "icons": [
         {
-          "src": "images/icons/manifest-icon-192.maskable.png",
+          "src": "/DicodingStory/images/icons/manifest-icon-192.maskable.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -54,7 +54,7 @@
       "url": "/DicodingStory/#/",
       "icons": [
         {
-          "src": "images/icons/manifest-icon-192.maskable.png",
+          "src": "/DicodingStory/images/icons/manifest-icon-192.maskable.png",
           "sizes": "192x192",
           "type": "image/png"
         }
@@ -63,8 +63,14 @@
   ],
   "screenshots": [
     {
-      "src": "images/logo.png",
-      "sizes": "512x512",
+      "src": "/DicodingStory/images/desktop-screenshot.png",
+      "sizes": "1920x1043",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/DicodingStory/images/mobile-screenshot.png",
+      "sizes": "1080x2280",
       "type": "image/png",
       "form_factor": "narrow"
     }
