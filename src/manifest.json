@@ -1,0 +1,42 @@
+{
+  "name": "Dicoding Story",
+  "short_name": "Story",
+  "description": "Berbagi cerita seputar Dicoding dengan kamera dan lokasi.",
+  "start_url": "/DicodingStory/",
+  "scope": "/DicodingStory/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "icons/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Beranda",
+      "url": "/DicodingStory/#/",
+      "icons": [
+        { "src": "icons/icon-96.svg", "sizes": "96x96", "type": "image/svg+xml" }
+      ]
+    },
+    {
+      "name": "Tambah Story",
+      "url": "/DicodingStory/#/add-story",
+      "icons": [
+        { "src": "icons/icon-96.svg", "sizes": "96x96", "type": "image/svg+xml" }
+      ]
+    }
+  ]
+}
+
+
