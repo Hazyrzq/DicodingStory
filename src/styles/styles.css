@@ -821,12 +821,14 @@ header {
   white-space: normal !important;
 }
 
-.skip-link:hover {
-  opacity: 1 !important;
-  transform: translateY(0) scale(1.05) !important;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2) !important;
-  background: var(--primary-dark) !important;
-  border-color: rgba(255, 255, 255, 0.4) !important;
+@media (hover: hover) {
+  .skip-link:hover {
+    opacity: 1 !important;
+    transform: translateY(0) scale(1.05) !important;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2) !important;
+    background: var(--primary-dark) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+  }
 }
 
 .skip-link:focus {
@@ -847,6 +849,42 @@ a.skip-link {
   opacity: 0 !important;
   visibility: visible !important;
   display: block !important;
+}
+
+/* Skip-link visible by default, only hide when drawer-open (mobile) */
+
+/* Mobile: sembunyikan default, tampil saat focus; sembunyikan saat drawer terbuka */
+@media (max-width: 768px) {
+  .skip-link, a.skip-link { opacity: 0 !important; pointer-events: none !important; }
+  .skip-link:focus, .skip-link:focus-visible, a.skip-link:focus, a.skip-link:focus-visible {
+    opacity: 1 !important; pointer-events: auto !important;
+  }
+  /* Sembunyikan saat drawer terbuka */
+  body.drawer-open .skip-link,
+  body.drawer-open a.skip-link {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
+
+/* Mobile Skip FAB - a small floating button to trigger skip */
+@media (max-width: 768px) {
+  .skip-fab {
+    position: fixed;
+    right: 14px;
+    bottom: 14px;
+    z-index: 99998;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(0,0,0,.2);
+  }
+  body.drawer-open .skip-fab { display: none; }
 }
 
 .btn {
