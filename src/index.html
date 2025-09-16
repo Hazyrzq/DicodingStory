@@ -46,10 +46,21 @@
         console.log('PWA installed');
       });
       window.installApp = async function(){
-        if (!deferredPrompt) return;
+        const btn = document.getElementById('install-btn');
+        // If prompt is available, use it; otherwise show guidance
+        if (!deferredPrompt) {
+          alert('Untuk memasang aplikasi: klik ikon Install di address bar atau buka menu Chrome → Install app.');
+          return;
+        }
         deferredPrompt.prompt();
-        await deferredPrompt.userChoice;
+        try { await deferredPrompt.userChoice; } catch {}
         deferredPrompt = null;
+        if (btn) btn.style.display = 'none';
+      }
+      // If already running as installed app, hide button
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        const btn = document.getElementById('install-btn');
+        if (btn) btn.style.display = 'none';
       }
     </script>
   </head>
