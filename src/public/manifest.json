@@ -60,19 +60,6 @@
         }
       ]
     }
-  ],
-  "screenshots": [
-    {
-      "src": "/DicodingStory/images/desktop-screenshot.png",
-      "sizes": "1920x1043",
-      "type": "image/png",
-      "form_factor": "wide"
-    },
-    {
-      "src": "/DicodingStory/images/mobile-screenshot.png",
-      "sizes": "1080x2280",
-      "type": "image/png",
-      "form_factor": "narrow"
-    }
   ]
+  
 }

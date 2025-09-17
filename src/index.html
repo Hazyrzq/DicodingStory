@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="favicon.png" />
-    <link rel="manifest" href="/DicodingStory/manifest.json?v=5" />
+    <link rel="manifest" href="/DicodingStory/manifest.json?v=6" />
     <meta name="theme-color" content="#3b82f6" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -31,37 +31,16 @@
         });
       }
 
-      // PWA Install prompt handler
+      // PWA Install prompt handler (no UI button)
       let deferredPrompt;
       window.addEventListener('beforeinstallprompt', (e) => {
         e.preventDefault();
-        deferredPrompt = e;
-        const btn = document.getElementById('install-btn');
-        if (btn) btn.style.display = 'inline-flex';
+        deferredPrompt = e; // kept for potential future use
       });
       window.addEventListener('appinstalled', () => {
-        const btn = document.getElementById('install-btn');
-        if (btn) btn.style.display = 'none';
         deferredPrompt = null;
         console.log('PWA installed');
       });
-      window.installApp = async function(){
-        const btn = document.getElementById('install-btn');
-        // If prompt is available, use it; otherwise show guidance
-        if (!deferredPrompt) {
-          alert('Untuk memasang aplikasi: klik ikon Install di address bar atau buka menu Chrome → Install app.');
-          return;
-        }
-        deferredPrompt.prompt();
-        try { await deferredPrompt.userChoice; } catch {}
-        deferredPrompt = null;
-        if (btn) btn.style.display = 'none';
-      }
-      // If already running as installed app, hide button
-      if (window.matchMedia('(display-mode: standalone)').matches) {
-        const btn = document.getElementById('install-btn');
-        if (btn) btn.style.display = 'none';
-      }
     </script>
   </head>
   <body>
@@ -69,7 +48,7 @@
       <a href="#main-content" class="skip-link" tabindex="1">Skip to content</a>
       <div class="main-header container">
         <a class="brand-name" href="#/">Dicoding Story</a>
-        <button id="install-btn" class="btn" style="display:none; margin-right:8px" onclick="window.installApp()"><i class="fas fa-download"></i> Install</button>
+        
         <nav id="navigation-drawer" class="navigation-drawer" style="margin-left:auto;">
           <ul id="nav-list" class="nav-list">
             <li><a href="#/"><i class="fas fa-home"></i> Beranda</a></li>
