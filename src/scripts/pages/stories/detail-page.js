@@ -1,10 +1,12 @@
 import { parseActivePathname } from '../../routes/url-parser';
 
 import { MapModel } from '../../models/map-model.js';
+import IndexedDBModel from '../../models/indexeddb-model.js';
 
 export default class StoryDetailPage {
   constructor() {
     this.mapModel = new MapModel();
+    this.indexedDB = new IndexedDBModel();
   }
 
   async render() {
@@ -48,10 +50,27 @@ export default class StoryDetailPage {
               <span><i class="fas fa-calendar"></i> Dibuat: ${new Date(s.createdAt).toLocaleDateString('id-ID')}</span>
               ${s.lat && s.lon ? '<span><i class="fas fa-map-marker-alt"></i> Lokasi tersedia</span>' : ''}
             </div>
+            <div style="margin-top:12px;">
+              <button id="fav-toggle" class="btn btn-outline"><i class="fas fa-bookmark"></i> Simpan</button>
+            </div>
           </div>
           ${mapHtml}
         </div>
       `;
+
+      // Favorite toggle setup
+      try {
+        await this.indexedDB.init();
+        const isFav = await this.indexedDB.isFavorite(s.id);
+        const favBtn = document.querySelector('#fav-toggle');
+        if (favBtn) {
+          if (isFav) favBtn.classList.add('active');
+          favBtn.addEventListener('click', async () => {
+            const saved = await this.indexedDB.toggleFavorite({ id: s.id, name: s.name, description: s.description, createdAt: s.createdAt, photoUrl: s.photoUrl });
+            favBtn.classList.toggle('active', saved);
+          });
+        }
+      } catch {}
 
       // Initialize map if story has location
       if (s.lat && s.lon && window.L) {

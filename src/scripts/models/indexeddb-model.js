@@ -1,9 +1,10 @@
 class IndexedDBModel {
   constructor() {
     this.dbName = 'DicodingStoryDB';
-    this.dbVersion = 2; // Increment version for new store
+    this.dbVersion = 3; // Increment version when schema changes
     this.storeName = 'stories';
     this.userStoreName = 'users';
+    this.favoriteStoreName = 'favorites';
     this.db = null;
   }
 
@@ -34,6 +35,13 @@ class IndexedDBModel {
           const userStore = db.createObjectStore(this.userStoreName, { keyPath: 'id' });
           userStore.createIndex('email', 'email', { unique: true });
           userStore.createIndex('name', 'name', { unique: false });
+        }
+
+        // Create favorites store
+        if (!db.objectStoreNames.contains(this.favoriteStoreName)) {
+          const favStore = db.createObjectStore(this.favoriteStoreName, { keyPath: 'id' });
+          favStore.createIndex('createdAt', 'createdAt', { unique: false });
+          favStore.createIndex('name', 'name', { unique: false });
         }
       };
     });
@@ -318,6 +326,68 @@ class IndexedDBModel {
       request.onsuccess = () => resolve(request.result);
       request.onerror = () => reject(request.error);
     });
+  }
+
+  // Favorites Management Methods
+  async addFavorite(story) {
+    if (!this.db) await this.init();
+    return new Promise((resolve, reject) => {
+      const transaction = this.db.transaction([this.favoriteStoreName], 'readwrite');
+      const store = transaction.objectStore(this.favoriteStoreName);
+      const now = new Date().toISOString();
+      const record = { ...story, createdAt: story.createdAt || now, savedAt: now };
+      const request = store.put(record);
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async getFavoriteById(id) {
+    if (!this.db) await this.init();
+    return new Promise((resolve, reject) => {
+      const transaction = this.db.transaction([this.favoriteStoreName], 'readonly');
+      const store = transaction.objectStore(this.favoriteStoreName);
+      const request = store.get(id);
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async getAllFavorites() {
+    if (!this.db) await this.init();
+    return new Promise((resolve, reject) => {
+      const transaction = this.db.transaction([this.favoriteStoreName], 'readonly');
+      const store = transaction.objectStore(this.favoriteStoreName);
+      const request = store.getAll();
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async removeFavorite(id) {
+    if (!this.db) await this.init();
+    return new Promise((resolve, reject) => {
+      const transaction = this.db.transaction([this.favoriteStoreName], 'readwrite');
+      const store = transaction.objectStore(this.favoriteStoreName);
+      const request = store.delete(id);
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  async isFavorite(id) {
+    const item = await this.getFavoriteById(id);
+    return !!item;
+  }
+
+  async toggleFavorite(story) {
+    const existing = await this.getFavoriteById(story.id);
+    if (existing) {
+      await this.removeFavorite(story.id);
+      return false;
+    }
+    await this.addFavorite(story);
+    return true;
   }
 }
 

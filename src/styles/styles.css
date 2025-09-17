@@ -2255,6 +2255,112 @@ input:focus {
   box-shadow: 0 16px 28px rgba(2, 6, 23, .12);
 }
 
+/* Bookmark / Favorite Buttons */
+.bookmark-btn {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-primary);
+  box-shadow: 0 2px 6px rgba(0,0,0,.08);
+  cursor: pointer;
+}
+.bookmark-btn i { pointer-events: none; }
+.bookmark-btn.active, .bookmark-btn.active i { color: var(--accent); border-color: var(--accent); }
+
+#fav-toggle.active, #fav-toggle.active i { color: var(--accent); border-color: var(--accent); }
+
+/* Confirm Modal Styles */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2,6,23,.50);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 16px;
+  backdrop-filter: blur(4px) saturate(120%);
+}
+.confirm-dialog {
+  width: 100%;
+  max-width: 460px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid rgba(2,6,23,.06);
+  box-shadow: 0 24px 60px rgba(2,6,23,.25), 0 4px 12px rgba(2,6,23,.06);
+  overflow: hidden;
+  animation: confirm-pop .18s ease-out;
+  position: relative;
+}
+.confirm-dialog::before { display: none; content: none; }
+.confirm-header {
+  padding: 16px 18px;
+  background: #ffffff;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border);
+}
+.confirm-header h3 { margin: 0; font-size: 1.2rem; font-weight: 700; display:flex; align-items:center; gap:12px; letter-spacing: -.01em; }
+.confirm-header h3 i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: #ebf3ff;
+  color: var(--primary);
+  line-height: 1;
+  font-size: 12px;
+  border: 1px solid rgba(37,99,235,.18);
+}
+.confirm-body { padding: 18px; color: var(--text-primary); line-height: 1.65; }
+.confirm-actions { padding: 14px 16px; display: flex; gap: 12px; justify-content: center; background:#f8fafc; }
+.confirm-actions .btn { 
+  min-width: 120px; 
+  border-radius: 10px; 
+  box-shadow: 0 1px 2px rgba(2,6,23,.06);
+  padding: 12px 20px;
+  height: 44px;
+  font-size: .95rem;
+  font-weight: 600;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.confirm-actions .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(2,6,23,.12); }
+
+/* Unify outline and danger button sizing inside confirm */
+.confirm-actions .btn-outline { padding: 12px 20px; height: 44px; font-size: .95rem; font-weight: 600; }
+.confirm-actions .btn-danger { padding: 12px 20px; height: 44px; font-size: .95rem; font-weight: 600; }
+
+@keyframes confirm-pop {
+  from { transform: translateY(6px) scale(.98); opacity: 0; }
+  to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* Compact confirm popover */
+.confirm-popover {
+  position: fixed;
+  z-index: 10001;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(2,6,23,.18);
+  width: 320px;
+  padding-bottom: 10px;
+}
+.confirm-popover-header { padding: 10px 12px; background: #1f2937; color: #fff; border-radius: 12px 12px 0 0; font-weight: 600; display:flex; align-items:center; gap:8px; }
+.confirm-popover-header i { color: #fbbf24; }
+.confirm-popover-body { padding: 12px; color: var(--text-primary); line-height: 1.5; }
+.confirm-popover-actions { padding: 0 12px; display:flex; justify-content:flex-end; gap:8px; }
+.confirm-popover-arrow { position:absolute; top:-6px; left:24px; width:12px; height:12px; background:#1f2937; transform: rotate(45deg); border-left:1px solid rgba(0,0,0,.1); border-top:1px solid rgba(0,0,0,.1); }
+
 .story-link {
   display: grid;
   grid-template-rows: auto 1fr;
@@ -2274,6 +2380,33 @@ input:focus {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+}
+
+.fav-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 8px 12px 12px 12px;
+}
+
+/* Favorites page small refinements */
+.favorites-page .stories-grid {
+  max-width: 1100px;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 320px));
+  justify-content: center;
+  gap: 1.5rem;
+}
+.favorites-page .story-card img {
+  height: 260px;
+}
+.favorites-page .story-content h3 {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 640px) {
+  .favorites-page .stories-grid {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+  .favorites-page .story-card img { height: 200px; }
 }
 
 .story-meta { display:flex; flex-wrap:wrap; gap:10px; color: var(--muted); font-size:.85rem; }

@@ -179,6 +179,18 @@ export class HomePresenter {
     }
   }
 
+  // Favorites
+  async toggleFavorite(story) {
+    try {
+      const saved = await this.indexedDB.toggleFavorite(story);
+      return saved;
+    } catch (e) {
+      console.error('toggleFavorite error', e);
+      this.view.showMessage('Gagal menyimpan favorit');
+      return false;
+    }
+  }
+
   // Save story to IndexedDB when offline
   async saveStoryOffline(story) {
     try {

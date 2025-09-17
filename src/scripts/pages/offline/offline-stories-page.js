@@ -17,6 +17,9 @@ class OfflineStoriesPage {
           <div class="page-header-content">
             <h1 id="page-title">Story Offline</h1>
             <p class="page-subtitle">Kelola cerita yang disimpan secara offline</p>
+            <div style="margin-top:8px; display:flex; gap:8px; flex-wrap:wrap;">
+              <a class="btn btn-outline" href="#/favorites"><i class="fas fa-bookmark"></i> Favorit Tersimpan</a>
+            </div>
           </div>
         </div>
         

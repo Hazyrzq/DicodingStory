@@ -302,6 +302,9 @@ export default class HomePage {
                 </div>
               </div>
             </a>
+            <button class="icon-btn bookmark-btn" aria-label="Simpan" data-id="${s.id}" data-name="${s.name}" data-description="${s.description}" data-created="${s.createdAt}" data-photo="${s.photoUrl || ''}">
+              <i class="fas fa-bookmark"></i>
+            </button>
           </li>
           `;
         })
@@ -482,5 +485,37 @@ export default class HomePage {
 
     // Load initial data
     await this.presenter.loadStories();
+
+    // Mark bookmark buttons active based on current favorites
+    try {
+      const indexed = new (await import('../../models/indexeddb-model.js')).default();
+      await indexed.init();
+      const favs = await indexed.getAllFavorites();
+      const favIds = new Set(favs.map(f => String(f.id)));
+      document.querySelectorAll('.bookmark-btn').forEach((btn) => {
+        if (favIds.has(btn.getAttribute('data-id'))) {
+          btn.classList.add('active');
+        }
+      });
+    } catch {}
+
+    // Delegate bookmark button clicks
+    const storiesContainer = document.querySelector('#stories');
+    if (storiesContainer) {
+      storiesContainer.addEventListener('click', async (e) => {
+        const btn = e.target.closest('.bookmark-btn');
+        if (!btn) return;
+        const story = {
+          id: btn.getAttribute('data-id'),
+          name: btn.getAttribute('data-name'),
+          description: btn.getAttribute('data-description'),
+          createdAt: btn.getAttribute('data-created'),
+          photoUrl: btn.getAttribute('data-photo') || ''
+        };
+        const saved = await this.presenter.toggleFavorite(story);
+        btn.classList.toggle('active', saved);
+        this.showMessage(saved ? 'Disimpan ke Favorit' : 'Dihapus dari Favorit');
+      });
+    }
   }
 }

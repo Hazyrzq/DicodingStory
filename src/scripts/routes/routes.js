@@ -4,6 +4,7 @@ import RegisterPage from '../pages/auth/register-page';
 import StoryDetailPage from '../pages/stories/detail-page';
 import AddStoryPage from '../pages/stories/add-story-page';
 import OfflineStoriesPage from '../pages/offline/offline-stories-page';
+import FavoritesPage from '../pages/favorites/favorites-page';
 import NotFoundPage from '../pages/not-found-page';
 
 const routes = {
@@ -14,6 +15,7 @@ const routes = {
   '/stories/:id': new StoryDetailPage(),
   '/add-story': new AddStoryPage(),
   '/offline-stories': new OfflineStoriesPage(),
+  '/favorites': new FavoritesPage(),
   '/404': new NotFoundPage(),
 };
 
